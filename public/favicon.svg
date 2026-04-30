@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Main folded newspaper body -->
+  <path d="M60 220h140a16 16 0 0 0 16-16V52a16 16 0 0 0-16-16H90a16 16 0 0 0-16 16v152a16 16 0 0 1-14 16h0Z" fill="#f3ede4" stroke="#141210" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Side spine fold detail -->
+  <path d="M60 220a16 16 0 0 1-16-16v-80c0-8.8 7.2-16 16-16h14" fill="none" stroke="#141210" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Accent colored image block -->
+  <rect x="106" y="76" width="70" height="50" rx="4" fill="#8b4513" stroke="#141210" stroke-width="8" stroke-linejoin="round"/>
+  
+  <!-- Text lines -->
+  <path d="M185 160h-80M155 196h-50" fill="none" stroke="#141210" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

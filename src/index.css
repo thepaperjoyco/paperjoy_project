@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Instrument Serif", serif;
+  --font-sans: "Inter", sans-serif;
+  /* Warm newsprint — cohesive with hero beige layers */
+  --color-paper: #f3ede4;
+  --color-paper-deep: #e5ddd0;
+  --color-paper-cream: #faf6ef;
+  --color-ink: #141210;
+  --color-ink-muted: #534c45;
+  --color-accent: #8b4513;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+  }
+}
+
+/* Full-site warm newsprint: gradient + halftone + column hints (fixed under content) */
+.newsprint-site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -18%, rgba(255, 252, 247, 0.72), transparent 55%),
+    radial-gradient(ellipse 90% 52% at 88% 100%, rgba(92, 72, 54, 0.07), transparent 50%),
+    linear-gradient(165deg, #e9e2d6 0%, #f4efe6 42%, #ddd3c4 100%);
+}
+
+.newsprint-site-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: radial-gradient(rgb(42 36 31) 0.65px, transparent 0.75px);
+  background-size: 11px 11px;
+}
+
+/* Animated border beam */
+@keyframes border-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.border-beam-wrapper {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 2px;
+  clip-path: inset(0 round 1.5rem);
+}
+
+.border-beam-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 65%,
+    #c4a574 78%,
+    #8b4513 83%,
+    #c4a574 88%,
+    transparent 95%
+  );
+  animation: border-spin 3.5s linear infinite;
+  transform-origin: center;
+}
+
+.border-beam-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: calc(1.5rem - 2px);
+  background: var(--color-paper);
+  height: 100%;
+}
+
+.newsprint-site-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 72px,
+      rgb(42 36 31 / 0.16) 72px,
+      rgb(42 36 31 / 0.16) 73px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 23px,
+      rgb(42 36 31 / 0.09) 23px,
+      rgb(42 36 31 / 0.09) 24px
+    );
+}
+
+/* ─── paper_joy Style Utilities ─────────────────────────── */
+
+.pj-display {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+.pj-display em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.pj-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pj-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  background-color: var(--color-paper-cream);
+  border: 1px solid rgb(20 18 16 / 0.08);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+}
+
+.pj-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgb(139 69 19 / 0.18);
+}
+
+/* Hover lift for cards */
+.pj-lift {
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.pj-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 60px -36px rgb(20 17 13 / 0.35);
+}
+
+/* Subtle floating animation */
+@keyframes pj-float {
+  0%, 100% { transform: translateY(0) rotate(var(--pj-rot, -6deg)); }
+  50%      { transform: translateY(-6px) rotate(var(--pj-rot, -6deg)); }
+}
+.pj-float {
+  animation: pj-float 5s ease-in-out infinite;
+}
+
+/* Underline ink effect on text links */
+.pj-link {
+  position: relative;
+  white-space: nowrap;
+}
+.pj-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.pj-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Soft press effect for primary CTA */
+.pj-cta {
+  transition: transform 200ms ease, background-color 200ms ease, box-shadow 200ms ease;
+}
+.pj-cta:hover {
+  transform: translateY(-2px);
+}
+.pj-cta:active {
+  transform: translateY(0);
+}
+
+@keyframes pj-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.pj-rotate {
+  animation: pj-spin 22s linear infinite;
+  transform-origin: center;
+}
