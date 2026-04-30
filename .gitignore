@@ -7,3 +7,6 @@ coverage/
 .env*
 !.env.example
 server/subscribers.json
+node_modules/
+.env
+.DS_Store
